@@ -57,8 +57,8 @@ def projectName = "Greeting"
 def mavenDesc = 'greeting'
 def baseUrl = 'https://github.com/adisonhyh'
 def siteUrl = baseUrl
-def gitUrl = "${baseUrl}/greeting.git"
-def issueUrl = "${baseUrl}/greeting/issues"
+def gitUrl = "${baseUrl}/GradlePluginDemo.git"
+def issueUrl = "${baseUrl}/GradlePluginDemo/issues"
 
 def licenseIds = ['Apache-2.0']
 def licenseNames = ['The Apache Software License, Version 2.0']

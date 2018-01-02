@@ -1,0 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url uri('../repo')
+        }
+    }
+    dependencies {
+        classpath group: 'com.adison', name: 'greeting',
+                version: '1.0-SNAPSHOT'
+    }
+}
+apply plugin: 'com.adison.greeting'
+
+task greeting(type: com.adison.greeting.GreetingTask) {
+    greeting = 'howdy!'
+}

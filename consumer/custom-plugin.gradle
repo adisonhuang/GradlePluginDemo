@@ -1,0 +1,143 @@
+////class GreetingPlugin implements Plugin<Project> {
+////    void apply(Project project) {
+////        project.task('hello') {
+////            doLast {
+////                println 'Hello from the GreetingPlugin'
+////            }
+////        }
+////    }
+////}
+////
+////// Apply the plugin
+////apply plugin: GreetingPlugin
+////
+////
+////class GreetingPluginExtension{
+////    String message = 'Hello from GreetingPlugin'
+////}
+////
+////class GreetingExtensionPlugin implements Plugin<Project> {
+////    void apply(Project project) {
+////        // Add the 'greeting' extension object
+////        def extension = project.extensions.create('greeting', GreetingPluginExtension)
+////        // Add a task that uses configuration from the extension object
+////        project.task('hello_1') {
+////            doLast {
+////                println extension.message
+////            }
+////        }
+////    }
+////}
+////
+////apply plugin: GreetingExtensionPlugin
+////
+////// Configure the extension
+////greeting.message = 'Hi from Gradle'
+////
+////
+////
+////class GreetingPluginExtension_1 {
+////    String message
+////    String greeter
+////}
+////
+////class GreetingClosurePlugin implements Plugin<Project> {
+////    void apply(Project project) {
+////        def extension = project.extensions.create('greeting_closure', GreetingPluginExtension_1)
+////        project.task('hello_2') {
+////            doLast {
+////                println "${extension.message} from ${extension.greeter}"
+////            }
+////        }
+////    }
+////}
+////
+////apply plugin: GreetingClosurePlugin
+////
+////// Configure the extension using a DSL block
+////greeting_closure {
+////    message = 'Hi'
+////    greeter = 'Gradle'
+////}
+//
+//
+//
+//class GreetingToFileTask extends DefaultTask {
+//
+//    def destination
+//
+//    File getDestination() {
+//        project.file(destination)
+//    }
+//
+//    @TaskAction
+//    def greet() {
+//        def file = getDestination()
+//        file.parentFile.mkdirs()
+//        file.write 'Hello!'
+//    }
+//}
+//
+//task greet(type: GreetingToFileTask) {
+//    destination = { project.greetingFile }
+//}
+//
+//task sayGreeting(dependsOn: greet) {
+//    doLast {
+//        println file(greetingFile).text
+//    }
+//}
+//
+//ext.greetingFile = "$buildDir/hello.txt"
+
+
+
+//class GreetingPlugin implements Plugin<Project> {
+//    void apply(Project project) {
+//        def extension = project.extensions.create('greeting', GreetingPluginExtension, project)
+//        project.tasks.create('hello', Greeting) {
+//            message = extension.message
+//            outputFiles = extension.outputFiles
+//        }
+//    }
+//}
+//
+//class GreetingPluginExtension {
+//    final Property<String> message
+//    final ConfigurableFileCollection outputFiles
+//
+//    GreetingPluginExtension(Project project) {
+//        message = project.objects.property(String)
+//        message.set('Hello from GreetingPlugin')
+//        outputFiles = project.files()
+//}
+//
+//    void setOutputFiles(FileCollection outputFiles) {
+//        this.outputFiles.setFrom(outputFiles)
+//    }
+//}
+//
+//
+//class Greeting extends DefaultTask {
+//    final Property<String> message = project.objects.property(String)
+//    final ConfigurableFileCollection outputFiles = project.files()
+//
+//    void setOutputFiles(FileCollection outputFiles) {
+//        this.outputFiles.setFrom(outputFiles)
+//    }
+//
+//    @TaskAction
+//    void printMessage() {
+//        outputFiles.each {
+//            logger.quiet "Writing message 'Hi from Gradle' to file"
+//            it.text = message.get()
+//        }
+//    }
+//}
+//
+//apply plugin: GreetingPlugin
+//
+//greeting {
+//    message = 'Hi from Gradle'
+//    outputFiles = files('a.txt', 'b.txt')
+//}
